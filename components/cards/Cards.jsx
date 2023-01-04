@@ -6,7 +6,7 @@ import style from './cards.scss'
 export default function Cards( { nav } ) {
     const renderCarsItem = ( item ) => {
         return (
-            <TouchableOpacity onPress={() => nav.navigate( 'Car', { item } )}
+            <TouchableOpacity onPress={() => nav.navigate( 'Voiture', { item } )}
                               style={style.cards__card}>
                 <Image style={style.cards__image} source={{ uri: item.image }}/>
                 <View style={style.cards__infos}>

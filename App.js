@@ -4,10 +4,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import Home from './pages/home/Home'
 import Cars from './pages/cars/Cars'
+import Car from './pages/car/Car'
 import Logo from './components/logo/Logo'
 
 const Stack = createNativeStackNavigator()
 export default function App() {
+
     return (
         <NavigationContainer>
             <StatusBar style="light"/>
@@ -21,7 +23,10 @@ export default function App() {
                               component={Home}
                               options={{ headerTitle: () => <Logo/> }}/>
                 <Stack.Screen name="Nos véhicules"
-                              component={Cars} />
+                              component={Cars}/>
+                <Stack.Screen name="Voiture"
+                              component={Car}
+                              options={({ route }) => ({ title: route.params.item.name })}/>
             </Stack.Navigator>
         </NavigationContainer>
     )
