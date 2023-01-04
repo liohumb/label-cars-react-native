@@ -17,7 +17,8 @@ export default function App() {
                 headerTintColor: '#fff',
                 headerStyle: {
                     backgroundColor: '#2D4F6D'
-                }
+                },
+                headerBackTitle: 'retour'
             }}>
                 <Stack.Screen name="Accueil"
                               component={Home}
