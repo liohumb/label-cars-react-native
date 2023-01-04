@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import Home from './pages/home/Home'
+import Logo from './components/logo/Logo'
 
 const Stack = createNativeStackNavigator()
 export default function App() {
@@ -10,11 +11,15 @@ export default function App() {
         <NavigationContainer>
             <StatusBar style="light"/>
             <Stack.Navigator screenOptions={{
-                headerTintColor: 'white',
                 headerStyle: {
                     backgroundColor: '#2D4F6D'
-                }}}>
-                <Stack.Screen name="Home" component={Home}/>
+                }
+            }}>
+                <Stack.Screen name="Home"
+                              options={{
+                                  headerTitle: () => <Logo/>
+                              }}
+                              component={Home}/>
             </Stack.Navigator>
         </NavigationContainer>
     )
