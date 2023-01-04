@@ -3,10 +3,10 @@ import Card from '../../components/card/Card'
 
 import style from './home.scss'
 
-export default function Home() {
+export default function Home(props) {
     return (
         <View style={style.home}>
-            <Card/>
+            <Card nav={props.navigation}/>
         </View>
     )
 }
