@@ -5,7 +5,15 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
-  },
-  "name": "label-cars"
+    ],
+    "packagerOpts": {
+      "config": "metro.config.js",
+      "sourceExts": ["js", "jsx", "scss", "sass"]
+    },
+    "icon": "./assets/logos/icon.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "backgroundColor": "#2D4F6D"
+    }
+  }
 }
