@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Button, View } from 'react-native'
+import { Button, View, Text } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Cards from '../../components/cards/Cards'
 import Filter from '../../components/filter/Filter'
@@ -17,9 +17,17 @@ export default function Cars( props ) {
     const [min, setMin] = useState( '0' )
     const [max, setMax] = useState( '700' )
 
+    const toggleFilter = () => {
+        if (show) {
+            return setShow(false)
+        } else {
+            return setShow(true)
+        }
+    }
+
     useEffect( () => {
         navigation.setOptions({
-            headerRight: () => <Button onPress={() => setShow(true)} title="Filtrer" color="#fff"/>
+            headerRight: () => <Button onPress={toggleFilter} title={show ? 'X' : 'Filtrer'} color="#fff"/>
         })
     }, [navigation, setShow])
 
@@ -45,7 +53,13 @@ export default function Cars( props ) {
             <Filter show={show} minV={setMin} min={min} maxV={setMax} max={max}
                     engine={engine} air={air}
                     changeEngine={toggleEngine} changeAir={toggleAir}/>
-            <Cards nav={props.navigation} data={show ? filteredCars : cars} active={show}/>
+            {filteredCars.length === 0 ?
+                <View style={style.cars__empty}>
+                    <Text style={style.cars__empty_text}>Aucun véhicule correspondant à votre recherche</Text>
+                </View>
+            :
+                <Cards nav={props.navigation} data={show ? filteredCars : cars}/>
+            }
         </View>
     )
 }

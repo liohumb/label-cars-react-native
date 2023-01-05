@@ -2,7 +2,7 @@ import { TouchableOpacity, View, Image, Text, ScrollView, FlatList } from 'react
 
 import style from './cards.scss'
 
-export default function Cards( { nav, data, active } ) {
+export default function Cards( { nav, data } ) {
     const renderCarsItem = ( item ) => {
         return (
             <TouchableOpacity onPress={() => nav.navigate( 'Voiture', { item } )}
@@ -22,7 +22,7 @@ export default function Cards( { nav, data, active } ) {
                       keyExtractor={( item ) => item.id}
                       renderItem={( { item } ) => renderCarsItem( item )}
                       showsVerticalScrollIndicator={false}
-                      style={active ? style.cards__active : style.cards__container}/>
+                      style={style.cards__container}/>
         </ScrollView>
     )
 }
