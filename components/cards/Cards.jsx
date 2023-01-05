@@ -1,9 +1,8 @@
 import { TouchableOpacity, View, Image, Text, ScrollView, FlatList } from 'react-native'
-import cars from '../../data/cars'
 
 import style from './cards.scss'
 
-export default function Cards( { nav } ) {
+export default function Cards( { nav, data, active } ) {
     const renderCarsItem = ( item ) => {
         return (
             <TouchableOpacity onPress={() => nav.navigate( 'Voiture', { item } )}
@@ -18,11 +17,12 @@ export default function Cards( { nav } ) {
     }
 
     return (
-        <ScrollView horizontal={true} style={style.cards}>
-            <FlatList data={cars}
+        <ScrollView horizontal={true} centerContent={true} style={style.cards}>
+            <FlatList data={data}
                       keyExtractor={( item ) => item.id}
                       renderItem={( { item } ) => renderCarsItem( item )}
-                      style={style.cards__container}/>
+                      showsVerticalScrollIndicator={false}
+                      style={active ? style.cards__active : style.cards__container}/>
         </ScrollView>
     )
 }

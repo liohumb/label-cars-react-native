@@ -1,3 +1,4 @@
+import { Button } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -9,7 +10,6 @@ import Logo from './components/logo/Logo'
 
 const Stack = createNativeStackNavigator()
 export default function App() {
-
     return (
         <NavigationContainer>
             <StatusBar style="light"/>
@@ -24,10 +24,13 @@ export default function App() {
                               component={Home}
                               options={{ headerTitle: () => <Logo/> }}/>
                 <Stack.Screen name="Nos véhicules"
-                              component={Cars}/>
+                              component={Cars}
+                              options={() => ({
+                                  headerRight: () => <Button title="Filtrer" color="#fff"/>
+                              })}/>
                 <Stack.Screen name="Voiture"
                               component={Car}
-                              options={({ route }) => ({ title: route.params.item.name })}/>
+                              options={( { route } ) => ({ title: route.params.item.name })}/>
             </Stack.Navigator>
         </NavigationContainer>
     )
