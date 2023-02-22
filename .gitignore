@@ -27,8 +27,8 @@ project.xcworkspace
 
 # Android/IntelliJ
 #
-build/
-.idea
+/build/
+/.idea
 /client/.gradle
 /client/local.properties
 /client/*.iml
@@ -37,6 +37,7 @@ build/
 
 # node.js
 #
+/admin/node_modules/
 /api/node_modules/
 /client/node_modules/
 /client/npm-debug.log
