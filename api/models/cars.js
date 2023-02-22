@@ -16,32 +16,30 @@ const CarsSchema = new mongoose.Schema( {
             type: Number,
             required: true
         },
-    reservation:
+    reservations:
         {
             type: Number,
             required: true
         },
     options:
-        [
-            {
-                aircondition:
-                    {
-                        type: Boolean
-                    },
-                navigation:
-                    {
-                        type: Boolean
-                    },
-                transmission:
-                    {
-                        type: String
-                    },
-                person:
-                    {
-                        type: Number
-                    }
-            }
-        ]
+        {
+            aircondition:
+                {
+                    type: Boolean
+                },
+            navigation:
+                {
+                    type: Boolean
+                },
+            transmission:
+                {
+                    type: String
+                },
+            person:
+                {
+                    type: Number
+                }
+        }
 }, { timestamps: true } )
 
 module.exports = mongoose.model( 'Cars', CarsSchema )
