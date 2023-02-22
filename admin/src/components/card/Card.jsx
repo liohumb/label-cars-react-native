@@ -1,13 +1,15 @@
+import { Link } from 'react-router-dom'
+
 import './card.scss'
 
-export default function Card( {image, title, subtitle} ) {
+export default function Card( {to, image, title, subtitle} ) {
     return (
-        <div className="card">
+        <Link to={to} className="card">
             <img src={image} alt=" " className="card__background"/>
             <div className="card__container">
                 <h1 className="card__container-title">{title}</h1>
                 <span className="card__container-subtitle">{subtitle}</span>
             </div>
-        </div>
+        </Link>
     )
 }
