@@ -29,31 +29,32 @@ project.xcworkspace
 #
 build/
 .idea
-.gradle
-local.properties
-*.iml
-*.hprof
-.cxx/
+/client/.gradle
+/client/local.properties
+/client/*.iml
+/client/*.hprof
+/client/.cxx/
 
 # node.js
 #
-node_modules/
-npm-debug.log
-yarn-error.log
+/api/node_modules/
+/client/node_modules/
+/client/npm-debug.log
+/client/yarn-error.log
 
 # BUCK
-buck-out/
-\.buckd/
-*.keystore
-!debug.keystore
+/client/buck-out/
+/client/\.buckd/
+/client/*.keystore
+/client/!debug.keystore
 
 # Bundle artifacts
-*.jsbundle
+/client/*.jsbundle
 
 # CocoaPods
-/ios/Pods/
+/client/ios/Pods/
 
 # Expo
-.expo/
-web-build/
-dist/
+/client/.expo/
+/client/web-build/
+/client/dist/
