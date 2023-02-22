@@ -1,12 +1,27 @@
-import React from 'react';
-import { StyleSheet, Text, View, FlatList, ImageBackground, Dimensions, ScrollView, TouchableOpacity, Image, SafeAreaView } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import React, { useState, useEffect } from 'react'
+import {
+    StyleSheet,
+    Text,
+    View,
+    FlatList,
+    ImageBackground,
+    Dimensions,
+    TouchableOpacity,
+    Image,
+    SafeAreaView
+} from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
 
-import cars from '../cars';
+const Home = ( props ) => {
+    const [cars, setCars] = useState( [] )
 
-const Home = (props) => {
-
-    const renderMostReservedItem = (item) => {
+    useEffect( () => {
+        fetch('http://localhost:5500/api/cars')
+            .then(response => response.json())
+            .then(cars => setCars(cars))
+            .catch(error => console.error(error))
+    }, [])
+    const renderMostReservedItem = ( item ) => {
         return (
             <View style={styles.carItem}>
                 <Image
@@ -16,26 +31,26 @@ const Home = (props) => {
                 />
                 <View>
                     <Text style={styles.carText}>{item.name}</Text>
-                    <Text>{item.price.toLocaleString('fr-FR')}€ par jour</Text>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('CarItem', { item })}>
+                    <Text>{item.price.toLocaleString( 'fr-FR' )}€ par jour</Text>
+                    <TouchableOpacity onPress={() => props.navigation.navigate( 'CarItem', { item } )}>
                         <Text style={styles.bookButton}>Réserver</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-        );
+        )
     }
 
-    const carsMostReserved = cars.sort((itemA, itemB) => itemB.reservations - itemA.reservations).slice(0, 5);
+    const carsMostReserved = cars.sort( ( itemA, itemB ) => itemB.reservations - itemA.reservations ).slice( 0, 5 )
 
     return (
         <SafeAreaView>
             <View style={styles.container}>
                 <TouchableOpacity
                     style={styles.heroContainer}
-                    onPress={() => props.navigation.navigate('CarsList')}
+                    onPress={() => props.navigation.navigate( 'CarsList' )}
                 >
                     <ImageBackground
-                        source={require('../assets/hero.jpg')}
+                        source={require( '../assets/hero.jpg' )}
                         style={styles.hero}
                         imageStyle={{ borderRadius: 15 }}
                     >
@@ -53,8 +68,8 @@ const Home = (props) => {
 
                     <FlatList
                         data={carsMostReserved}
-                        renderItem={({ item }) => renderMostReservedItem(item)}
-                        keyExtractor={item => item.id}
+                        renderItem={( { item } ) => renderMostReservedItem( item )}
+                        keyExtractor={item => item._id}
                         numColumns="2"
                     />
                 </View>
@@ -63,12 +78,11 @@ const Home = (props) => {
     )
 }
 
-export default Home;
+export default Home
 
-const vw = Dimensions.get('screen').width;
-const vh = Dimensions.get('screen').height;
+const vh = Dimensions.get( 'screen' ).height
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create( {
     container: {
         backgroundColor: '#f9f9f9',
         padding: 20
@@ -80,7 +94,7 @@ const styles = StyleSheet.create({
 
     hero: {
         height: vh / 4,
-        justifyContent: "flex-end"
+        justifyContent: 'flex-end'
     },
 
     heroTextContainer: {
@@ -100,16 +114,16 @@ const styles = StyleSheet.create({
     },
 
     sectionTitle: {
-        color: "#2D4F6C",
+        color: '#2D4F6C',
         fontSize: 20,
-        textAlign: "center",
+        textAlign: 'center',
         marginBottom: 10
     },
 
     carItem: {
         flex: 1,
         height: vh / 3.75,
-        backgroundColor: "#e9e9e9",
+        backgroundColor: '#e9e9e9',
         padding: 10,
         margin: 5,
         borderRadius: 15
@@ -117,18 +131,18 @@ const styles = StyleSheet.create({
 
     carImage: {
         width: '100%',
-        height: "65%"
+        height: '65%'
     },
 
     carText: {
         fontSize: 16,
-        fontWeight: "bold",
+        fontWeight: 'bold'
     },
 
     bookButton: {
         fontSize: 18,
-        color: "#147EFB",
-        textAlign: "center",
+        color: '#147EFB',
+        textAlign: 'center',
         padding: 10
     }
-});
+} )
