@@ -8,7 +8,6 @@ export default function Card( {to, image, title, subtitle} ) {
             <img src={image} alt=" " className="card__background"/>
             <div className="card__container">
                 <h1 className="card__container-title">{title}</h1>
-                <span className="card__container-subtitle">{subtitle}</span>
             </div>
         </Link>
     )

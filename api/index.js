@@ -1,10 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 const carsRoute = require('./routes/cars')
 
 const app = express()
 
+app.use(cors())
 app.use(express.json())
 app.listen(5500, () => {
     console.log("Ça roule ma poule sur le port 5500 !")
