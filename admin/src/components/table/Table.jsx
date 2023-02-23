@@ -34,7 +34,7 @@ export default function Table() {
                           className="table__col table__col-reservation"
                           data-label="Réservation">{car.reservations}</Link>
                     <div className="table__col table__col-options">
-                        <i className="bx bxs-edit table__col-edit"/>
+                        <Link to={`/modifier-une-voiture/${car._id}`} className="bx bxs-edit table__col-edit"/>
                         <span> | </span>
                         <i className="bx bxs-trash table__col-delete"></i>
                     </div>

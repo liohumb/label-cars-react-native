@@ -7,6 +7,7 @@ import Register from './pages/register/Register'
 import Login from './pages/login/Login'
 import Logout from './pages/logout/Logout'
 import Create from './pages/create/Create'
+import Edit from './pages/edit/Edit'
 import Cars from './pages/cars/Cars'
 import Car from './pages/car/Car'
 
@@ -19,6 +20,7 @@ function App() {
             <Routes>
                 <Route path="/voiture/:id" element={<Car/>}/>
                 <Route path="/voitures" element={<Cars/>}/>
+                <Route path="/modifier-une-voiture/:id" element={<Edit/>}/>
                 <Route path="/ajouter-une-voiture" element={<Create/>}/>
                 <Route path="/deconnexion" element={<Logout/>}/>
                 <Route path="/connexion" element={<Login/>}/>

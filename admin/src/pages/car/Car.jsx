@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import './car.scss'
 
@@ -47,7 +47,7 @@ export default function Car() {
                     </p>
                 </div>
                 <div className="car__options">
-                    <span className="car__options-edit">Modifier</span>
+                    <Link to={`/modifier-une-voiture/${car._id}`} className="car__options-edit">Modifier</Link>
                     <span className="car__options-delete">Supprimer</span>
                 </div>
             </div>

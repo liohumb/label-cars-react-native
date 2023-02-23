@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import './form.scss'
 
-export default function Form() {
+export default function Form({edit}) {
     const [car, setCar] = useState( {
         name: '',
         price: '',
@@ -13,27 +14,59 @@ export default function Form() {
             person: ''
         }
     } )
+    const {id} = useParams()
+
+    useEffect( () => {
+        fetch( `http://localhost:5500/api/cars/${id}` )
+            .then( response => response.json() )
+            .then( data => setCar( data ) )
+            .catch( error => console.error( error ) )
+    }, [id] )
 
     const handleChange = ( e ) => {
         const {name, value} = e.target
 
-        setCar( ( prevState ) => ({
-            ...prevState,
+        if (name === "aircondition" || name === "navigation" || name === "transmission" || name === "person") {
+            setCar( ( prevState ) => ({
+                ...prevState,
+                options: {
+                    ...prevState.options,
+                    [name]: value
+                }
+            }))
+        } else {
+            setCar( ( prevState ) => ({
+                ...prevState,
                 [name]: value
-        }))
+            }))
+        }
     }
 
     const handleSubmit = ( e ) => {
         e.preventDefault()
 
-        fetch('http://localhost:5500/api/cars', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(car)
-        }).then(response => response.json()).then(data => console.log(data))
-            .catch(error => console.error(error))
+        if (edit) {
+            fetch(`http://localhost:5500/api/cars/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(car)
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error))
+        } else {
+            fetch('http://localhost:5500/api/cars', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(car)
+            }).then(response => response.json()).then(data => console.log(data))
+                .catch(error => console.error(error))
+        }
+
     }
 
     return (
@@ -62,23 +95,23 @@ export default function Form() {
                 <div className="form__contents-content">
                     <label htmlFor="aircondition">Climatisation</label>
                     <select name="aircondition" id="aircondition"
-                            value={car.aircondition} onChange={handleChange}>
-                        <option value="true">oui</option>
-                        <option value="false">non</option>
+                            value={car.options.aircondition} onChange={handleChange}>
+                        <option value={true}>oui</option>
+                        <option value={false}>non</option>
                     </select>
                 </div>
                 <div className="form__contents-content">
                     <label htmlFor="navigation">GPS intégré</label>
                     <select name="navigation" id="navigation"
-                            value={car.navigation} onChange={handleChange}>
-                        <option value="true">oui</option>
-                        <option value="false">non</option>
+                            value={car.options.navigation} onChange={handleChange}>
+                        <option value={true}>oui</option>
+                        <option value={false}>non</option>
                     </select>
                 </div>
                 <div className="form__contents-content">
                     <label htmlFor="transmission">Transmission</label>
                     <select name="transmission" id="transmission"
-                            value={car.transmission} onChange={handleChange}>
+                            value={car.options.transmission} onChange={handleChange}>
                         <option value="AUTOMATIC">automatique</option>
                         <option value="MANUAL">manuelle</option>
                     </select>
@@ -86,11 +119,14 @@ export default function Form() {
                 <div className="form__contents-content">
                     <label htmlFor="person">Nombre de place</label>
                     <input type="number" name="person" id="person"
-                           placeholder="2, 4, 5 ?" value={car.person} onChange={handleChange}/>
+                           placeholder="2, 4, 5 ?"
+                           value={car.options.person} onChange={handleChange}/>
                 </div>
             </div>
             <div className="form__content">
-                <button type="submit">Ajouter</button>
+                <button type="submit">
+                    {edit ? 'Modifier' : 'Ajouter'}
+                </button>
             </div>
         </form>
     )
