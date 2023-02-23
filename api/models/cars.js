@@ -19,7 +19,7 @@ const CarsSchema = new mongoose.Schema( {
     reservations:
         {
             type: Number,
-            required: true
+            default: 0
         },
     options:
         {
