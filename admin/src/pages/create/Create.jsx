@@ -7,7 +7,7 @@ export default function Create(  ) {
         <section className="create">
             <div className="create__container">
                 <h1 className="create__container-title">Ajouter une nouvelle voiture au catalogue</h1>
-                <Form/>
+                <Form edit={false}/>
             </div>
         </section>
     )

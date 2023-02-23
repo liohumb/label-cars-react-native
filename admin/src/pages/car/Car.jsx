@@ -1,18 +1,31 @@
 import { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 
 import './car.scss'
 
 export default function Car() {
     const [car, setCar] = useState( null )
     const { id } = useParams()
+    const navigate = useNavigate()
 
     useEffect( () => {
         fetch( `http://localhost:5500/api/cars/${id}` )
             .then( response => response.json() )
-            .then( car => setCar( car ) )
+            .then( data => setCar( data ) )
             .catch( error => console.error( error ) )
     }, [id] )
+
+    const handleDelete = (name) => {
+        const confirmation = window.confirm(`Êtes vous sûr de bien vouloir supprimer la voiture ${name}?`)
+
+        if (confirmation) {
+            fetch(`http://localhost:5500/api/cars/${id}`, {
+                method: 'DELETE'
+            }).then(response => response.json())
+                .then( (  ) => navigate('/voitures'))
+                .catch(error => console.error(error))
+        }
+    }
 
     if (!car) {
         return (
@@ -48,7 +61,7 @@ export default function Car() {
                 </div>
                 <div className="car__options">
                     <Link to={`/modifier-une-voiture/${car._id}`} className="car__options-edit">Modifier</Link>
-                    <span className="car__options-delete">Supprimer</span>
+                    <span className="car__options-delete" onClick={(  ) => handleDelete(car.name)}>Supprimer</span>
                 </div>
             </div>
         </section>

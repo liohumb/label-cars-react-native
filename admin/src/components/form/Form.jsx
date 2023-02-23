@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import './form.scss'
 
 export default function Form({edit}) {
@@ -15,13 +15,16 @@ export default function Form({edit}) {
         }
     } )
     const {id} = useParams()
+    const navigate =useNavigate()
 
     useEffect( () => {
-        fetch( `http://localhost:5500/api/cars/${id}` )
-            .then( response => response.json() )
-            .then( data => setCar( data ) )
-            .catch( error => console.error( error ) )
-    }, [id] )
+        if (edit) {
+            fetch( `http://localhost:5500/api/cars/${id}` )
+                .then( response => response.json() )
+                .then( data => setCar( data ) )
+                .catch( error => console.error( error ) )
+        }
+    }, [id, edit] )
 
     const handleChange = ( e ) => {
         const {name, value} = e.target
@@ -53,8 +56,7 @@ export default function Form({edit}) {
                 },
                 body: JSON.stringify(car)
             })
-                .then(response => response.json())
-                .then(data => console.log(data))
+                .then(response => response.json()).then( () => navigate('/voitures'))
                 .catch(error => console.error(error))
         } else {
             fetch('http://localhost:5500/api/cars', {
@@ -63,7 +65,7 @@ export default function Form({edit}) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(car)
-            }).then(response => response.json()).then(data => console.log(data))
+            }).then(response => response.json()).then( () => navigate('/voitures'))
                 .catch(error => console.error(error))
         }
 
