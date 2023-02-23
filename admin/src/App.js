@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 
 import Header from './navigations/header/Header'
 import Footer from './navigations/footer/Footer'
@@ -14,9 +14,12 @@ import Car from './pages/car/Car'
 import './assets/styles/styles.scss'
 
 function App() {
+    const location = useLocation()
+    const homePage = location.pathname === '/'
+
     return (
         <>
-            <Header/>
+            {!homePage && <Header/>}
             <Routes>
                 <Route path="/voiture/:id" element={<Car/>}/>
                 <Route path="/voitures" element={<Cars/>}/>

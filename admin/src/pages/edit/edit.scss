@@ -5,6 +5,7 @@
   height: 100vh;
   display: grid;
   place-items: center;
+  padding: 10% 0;
 
   @media (max-width: 768px) {
     height: 100%;
