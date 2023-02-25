@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 
 import Header from './navigations/header/Header'
@@ -14,23 +15,31 @@ import Car from './pages/car/Car'
 import './assets/styles/styles.scss'
 
 function App() {
+    const [user, setUser] = useState( false )
     const location = useLocation()
     const homePage = location.pathname === '/'
     const registerPage = location.pathname === '/inscription'
     const loginPage = location.pathname === '/connexion'
+    const logoutPage = location.pathname === '/deconnexion'
+
+    useEffect( (  ) => {
+        if (localStorage.getItem('user')) return setUser(true)
+    }, [])
+
+    console.log(user)
 
     return (
         <>
-            {!homePage && !registerPage && !loginPage && <Header/>}
+            {!homePage && !registerPage && !loginPage && !logoutPage && <Header/>}
             <Routes>
-                <Route path="/voiture/:id" element={<Car/>}/>
-                <Route path="/voitures" element={<Cars/>}/>
-                <Route path="/modifier-une-voiture/:id" element={<Edit/>}/>
-                <Route path="/ajouter-une-voiture" element={<Create/>}/>
-                <Route path="/deconnexion" element={<Logout/>}/>
-                <Route path="/connexion" element={<Login/>}/>
-                <Route path="/inscription" element={<Register/>}/>
-                <Route index path="/" element={<Home/>}/>
+                <Route path="/voiture/:id" element={user ? <Car/> : <Login/>}/>
+                <Route path="/voitures" element={user ? <Cars/> : <Login/>}/>
+                <Route path="/modifier-une-voiture/:id" element={user ? <Edit/> : <Login/>}/>
+                <Route path="/ajouter-une-voiture" element={user ? <Create/> : <Login/>}/>
+                <Route path="/deconnexion" element={user ? <Logout/> : <Login/>}/>
+                <Route path="/connexion" element={user ? <Home/> : <Login/>}/>
+                <Route path="/inscription" element={user ? <Home/> : <Register/>}/>
+                <Route index path="/" element={user ? <Home/> : <Login/>}/>
             </Routes>
             <Footer/>
         </>

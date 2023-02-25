@@ -15,7 +15,9 @@ export default function Login() {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({username, password})
-        }).then(response => response.json()).then( () => navigate('/'))
+        }).then(response => response.json())
+            .then(localStorage.setItem('user', 'true'))
+            .then( () => navigate('/'))
             .catch(error => console.error(error))
     }
 
