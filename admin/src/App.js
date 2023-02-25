@@ -16,10 +16,12 @@ import './assets/styles/styles.scss'
 function App() {
     const location = useLocation()
     const homePage = location.pathname === '/'
+    const registerPage = location.pathname === '/inscription'
+    const loginPage = location.pathname === '/connexion'
 
     return (
         <>
-            {!homePage && <Header/>}
+            {!homePage && !registerPage && !loginPage && <Header/>}
             <Routes>
                 <Route path="/voiture/:id" element={<Car/>}/>
                 <Route path="/voitures" element={<Cars/>}/>
